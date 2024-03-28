@@ -3,8 +3,8 @@
 # Description: This script configures Slurm with MIG mode enabled and sets up MIG profiles.
 
 
-MIGMODEPROFILE=$(jetpack config MigProfile)
-NUM_MIG_INSTANCES=$(jetpack config MigInstances)
+MIGMODEPROFILE=$(jetpack config mig.profile)
+NUM_MIG_INSTANCES=$(jetpack config mig.instances)
 
 SCHED_PATH=$(ls -ld /sched/* | cut -d '/' -f3)
 
