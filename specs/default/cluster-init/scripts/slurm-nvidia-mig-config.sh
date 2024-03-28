@@ -1,16 +1,20 @@
 #!/bin/sh
 # Title: Slurm with MIG Mode Configuration
 # Description: This script configures Slurm with MIG mode enabled and sets up MIG profiles.
+
+
+MIGMODEPROFILE=$(jetpack config MigProfile)
+NUM_MIG_INSTANCES=$(jetpack config MigInstances)
+
 SCHED_PATH=$(ls -ld /sched/* | cut -d '/' -f3)
 
-MIGMODEPROFILE='1g.24gb'
 if [ -z "$MIGMODEPROFILE" ]; then
     echo "Error: MIGMODEPROFILE variable is not set."
     exit 1
 fi
 
 # Specify the number of MIG instances
-NUM_MIG_INSTANCES=4
+
 
 # Create the MIG config string
 MIG_CONFIG=""

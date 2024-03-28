@@ -177,6 +177,7 @@ Autoscale = $Autoscale
         slurm.use_nodename_as_hostname = $NodeNameIsHostname
 
         [[[cluster-init cyclecloud/slurm:execute:3.0.6]]]
+        [[[cluster-init cyclecloud-slurm-mig-config:default:1.0.0]]]
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $ExecuteNodesPublic
@@ -195,7 +196,8 @@ Autoscale = $Autoscale
         slurm.default_partition = true
         slurm.hpc = true
         slurm.partition = nvidia_h100_mig
-
+        mig.profile = $MigProfile
+        mig.instances = $MigInstances
 
 
 [parameters About]
@@ -243,6 +245,22 @@ Order = 10
         DefaultValue = true
         Widget.Plugin = pico.form.BooleanCheckBox
         Widget.Label = Start and stop execute instances automatically
+
+        [[[parameter MigProfile]]]
+        Label = Nvidia H100 MIG Profile
+        Description = The MIG profile to use for the Nvidia H100 GPU execute nodes
+        ParameterType = StringList
+        Config.Plugin = pico.form.Dropdown
+        Config.Entries := {[Label="MIG-1g.12gb", Value="1g.12gb"], [Label="MIG-1g.24gb", Value="1g.24gb"], [Label="MIG-2g.24gb", Value="2g.24gb"], [Label="MIG-3g.47gb ", Value="3g.47gb"], [Label="MIG-4g.47gb ", Value="4g.47gb"], [Label="MIG-7g.94gb", Value="7g.94gb"]}
+        Required = true
+
+        [[[parameter MigInstances]]]
+        Label = No of instances Nvidia H100 MIG Instances
+        Description = The number of instances to start per H100 GPU
+        DefaultValue = {ifThenElse(MigProfile == "1g.12gb", 7, ifThenElse(MigProfile == "1g.24gb", 4, ifThenElse(MigProfile == "2g.24gb", 3, ifThenElse(MigProfile == "3g.47gb", 2, ifThenElse(MigProfile == "4g.47gb", 1, ifThenElse(MigProfile == "7g.94gb", 1, 1)))))}
+        Config.Plugin = pico.form.NumberTextBox
+        Config.MinValue = 1
+        Config.IntegerOnly = true
 
         [[[parameter MaxH100ExecuteCoreCount]]]
         Label = Max Azure H100GPU VM Cores
