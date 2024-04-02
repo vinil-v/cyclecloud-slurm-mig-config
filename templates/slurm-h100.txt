@@ -4,10 +4,10 @@
 ################################
 
 
-[cluster Slurm-NvidiaH100MIG-Cluster]
+[cluster Nvidia-H100mig-Cluster]
 IconUrl = static/cloud/cluster/ui/ClusterIcon/slurm.png
 FormLayout = selectionpanel
-Category = Schedulers
+Category = Infrastructure
 
 Autoscale = $Autoscale
 
