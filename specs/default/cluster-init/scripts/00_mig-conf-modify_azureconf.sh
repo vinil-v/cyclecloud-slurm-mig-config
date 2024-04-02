@@ -22,7 +22,7 @@ if hostname | grep -q "scheduler"; then
     else
         echo "Error: $AZURE_CONF not found."
     fi
-    EOF
+EOF
 
     # Add the cron job and make the script executable
     echo "* * * * * /opt/mig_check_and_restart_slurmctld.sh >/dev/null 2>&1" | crontab -
