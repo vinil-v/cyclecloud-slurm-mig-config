@@ -5,9 +5,13 @@
 # Retrieve the MIG profile from the Jetpack configuration
 MIGMODEPROFILE=$(jetpack config mig.profile)
 
+if [ -z "$MIGMODEPROFILE" ]; then
+    echo "Error: MIGMODEPROFILE variable is not set."
+    exit 1
+fi
 # Determine the number of MIG instances based on the MIG profile
 # Assigning the appropriate number of instances according to the profile's specifications
-case $MIG_PROFILE in
+case $MIGMODEPROFILE in
     "1g.12gb")
         NUM_MIG_INSTANCES=7 ;;
     "1g.24gb")
@@ -23,11 +27,7 @@ case $MIG_PROFILE in
 esac
 
 SCHED_PATH=$(ls -ld /sched/* | cut -d '/' -f3)
-
-if [ -z "$MIGMODEPROFILE" ]; then
-    echo "Error: MIGMODEPROFILE variable is not set."
-    exit 1
-fi
+SCHEDULER_HOST=$(jetpack config slurm.node_prefix)scheduler
 
 # Specify the number of MIG instances
 
@@ -43,7 +43,6 @@ for i in $(seq 1 $NUM_MIG_INSTANCES); do
 done
 
 echo "MIG config string: $MIG_CONFIG"
-
 
 # Enable MIG mode and configure MIG instances
 /usr/bin/nvidia-smi -pm 1
@@ -76,3 +75,4 @@ sed -i "s/$SLURMGRESCONF/Gres=gpu:$MIGMODEFROMGRESCONF:$NUM_MIG_INSTANCES/" /sch
 # Restart slurmd
 echo "Restarting slurmd"
 systemctl restart slurmd
+
