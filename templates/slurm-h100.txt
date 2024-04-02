@@ -5,6 +5,7 @@
 
 
 [cluster Slurm-NvidiaH100MIG-Cluster]
+IconUrl = static/cloud/cluster/ui/ClusterIcon/slurm.png
 FormLayout = selectionpanel
 Category = Schedulers
 
