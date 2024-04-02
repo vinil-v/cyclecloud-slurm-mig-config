@@ -197,9 +197,7 @@ Autoscale = $Autoscale
         slurm.hpc = true
         slurm.partition = nvidia_h100_mig
         mig.profile = $MigProfile
-        mig.instances = ${ifThenElse(MigProfile == "1g.12gb", 7, ifThenElse(MigProfile == "1g.24gb", 4, ifThenElse(MigProfile == "2g.24gb", 3, ifThenElse(MigProfile == "3g.47gb", 2, ifThenElse(MigProfile == "4g.47gb", 1, ifThenElse(MigProfile == "7g.94gb", 1, 1))))))}
-
-
+        
 [parameters About]
 Order = 1
 
