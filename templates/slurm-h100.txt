@@ -253,7 +253,7 @@ Order = 10
         Config.Plugin = pico.form.Dropdown
         Config.Entries := {[Label="MIG-1g.12gb"; Value="1g.12gb"], [Label="MIG-1g.24gb"; Value="1g.24gb"], [Label="MIG-2g.24gb"; Value="2g.24gb"], [Label="MIG-3g.47gb"; Value="3g.47gb"], [Label="MIG-4g.47gb"; Value="4g.47gb"], [Label="MIG-7g.94gb"; Value="7g.94gb"]}
         Required = true
-
+        DefaultValue = 1g.12gb
 
         [[[parameter MaxH100ExecuteCoreCount]]]
         Label = Max Azure H100GPU VM Cores
